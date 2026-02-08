@@ -1,0 +1,51 @@
+:root {
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Lato', sans-serif;
+  --font-accent: 'Playfair Display', serif;
+
+  --color-primary: #EABD21;
+  --color-accent: #D71820;
+  --color-dark: #000000;
+  --color-muted: #94908C;
+  --color-light: #FFFFFF;
+}
+
+*{
+ margin: 0;
+ padding: 0;   
+ box-sizing: border-box;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
+
+body, p, li {
+  font-family: var(--font-body);
+}
+
+blockquote .label{
+  font-family: var(--font-accent);
+}
+
+/*  HEADER */
+
+.top_nav{
+  background-color: var(--color-dark);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.top_nav .left{
+  display: flex;
+  gap: 1em;
+}
+
+.top_nav p{
+  color: var(--color-light)
+}
+
+.top_nav i{
+  color: var(--color-primary)
+}
