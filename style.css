@@ -24,17 +24,24 @@ body, p, li {
   font-family: var(--font-body);
 }
 
-blockquote .label{
+blockquote, .label{
   font-family: var(--font-accent);
+}
+
+a{
+  text-decoration: none;
 }
 
 /*  HEADER */
 
+/* topNav */
 .top_nav{
   background-color: var(--color-dark);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 1em 0.5em;
 }
 
 .top_nav .left{
@@ -49,3 +56,39 @@ blockquote .label{
 .top_nav i{
   color: var(--color-primary)
 }
+
+.top_nav .info{
+  display: flex;
+  gap: 0.25em;
+}
+
+/* Nav */
+.nav_header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75em 1em;
+  border-bottom: 1px solid var(--color-dark);
+}
+
+.nav_header .nav_logo .logo{
+  display: flex;
+  align-items: center;
+}
+
+.nav_header .nav_logo .logo img{
+  width: 10%;
+}
+
+.nav_header .nav_logo .logo blockquote{
+  color: var(--color-dark);
+  font-weight: 600;
+}
+
+.nav_header .nav_menu_btn i{
+  font-size: 1.5em;
+  font-weight: 800;
+}
+
+
