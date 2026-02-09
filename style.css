@@ -237,6 +237,79 @@ header::before{
   color: var(--color-light);
 }
 
+/* Featured Events */
+.featured_events{
+  padding: 2em 4em;
+  background-color: var(--color-dark);
+}
+
+.featured_events h1, .featured_events h2{
+  color: var(--color-light);
+}
+
+.featured_events .row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 3em;
+}
+
+.featured_events a{
+  color: var(--color-light);
+  transition: .3s;
+}
+
+.featured_events a:hover{
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+.featured_container, .card > .box, .card > .content .info,
+.content .info > .time, .content .info > .location{
+  display: flex; 
+}
+
+.featured_container .card{
+  display: flex;
+  border: 2px solid var(--color-light);
+  padding: 2em;
+  gap: 1em;
+}
+
+.card > .box{
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2em;
+  background-color: var(--color-primary);
+  gap: 0.25em;
+
+  :first-child{
+    font-weight: 700;
+    font-size: 24px;
+  }
+}
+
+.content .info{
+  padding-top: 1em;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.content .info > .time, .content .info > .location{
+  gap: 0.5em;
+}
+
+.card > .content .info p{
+  color: var(--color-light);
+}
+
+.card > .content .info i{
+  color: var(--color-primary);
+}
+
+
+
 
 
 
