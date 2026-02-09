@@ -126,7 +126,7 @@ nav{
   border: 1px solid var(--color-muted);
   border-top: 0px;
   background: var(--color-light);
-  padding: 5em 0em;
+  padding: 1.5em 0em;
   border-radius: 0em 0em 1em 1em;
   list-style: none;
   transition: transform 0.6s;
@@ -251,6 +251,7 @@ header::before{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding-bottom: 3em;
 }
 
@@ -271,6 +272,7 @@ header::before{
 
 .featured_container .card{
   display: flex;
+  flex-wrap: wrap;
   border: 2px solid var(--color-light);
   padding: 2em;
   gap: 1em;
@@ -307,6 +309,76 @@ header::before{
 .card > .content .info i{
   color: var(--color-primary);
 }
+
+/* About Us  */
+
+.about_us{
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+  padding: 3em;
+}
+
+.about_us .header_row, .about_us .header_row .content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2.5em;
+}
+
+.about_us .header_row .content{
+  gap: 1em;
+}
+
+.about_us .header_row img{
+  width: 100%;
+  height: 350px;
+  border-radius: 1em;
+}
+
+.about_us .header_row h1, 
+.about_us .header_row p{
+  text-align: center;
+}
+
+.about_us .header_row h1 span {
+  color: var(--color-primary);
+}
+
+.about_us .header_row p span {
+  font-weight: 600;
+}
+
+.about_us .info_row{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.about_us .info_row .card{
+  border-top: 3px solid var(--color-primary);
+  gap: 0.25em;
+  padding: 0.5em;
+}
+
+.about_us .info_row .card > :first-child{
+  font-size: 18px;
+}
+
+.about_us .info_row .card > :nth-child(2){
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.about_us .info_row .card span{
+  color: var(--color-primary)
+}
+
+
+
+
 
 
 
@@ -390,6 +462,6 @@ header::before{
     display: block;
     padding-bottom: var(--nav-height);
     padding-top: var(--nav-height);
-}
+  }
 
 }
