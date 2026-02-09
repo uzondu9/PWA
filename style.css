@@ -111,7 +111,7 @@ nav{
   bottom: 0;
   left: 0;
   width: 100%;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2em;
@@ -121,12 +121,13 @@ nav{
   padding: 1em 0em;
   border-radius: 0em 0em 1em 1em;
   list-style: none;
-  transition: transform 0.9s;
+  transition: transform 0.8s;
   z-index: -1;
+  visibility: hidden;
 }
 
 .nav_links.open{
-  display: flex;
+  visibility: visible;
   transform: translateY(100%);
 }
 
@@ -134,6 +135,11 @@ nav .nav_links li a{
   color: var(--color-dark);
   font-weight: 500;
   white-space: nowrap;
+  transition: .3s;
+}
+
+nav .nav_links li a:hover{
+  color: var(--color-primary);
 }
 
 .btn{
