@@ -13,3 +13,19 @@ menuBtn.addEventListener('click', (e) =>{
    menuBtnIcon.setAttribute('class', 'ri-menu-line')
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  function setNavHeight() {
+    const nav = document.getElementById('navbar')
+    if (!nav) return;
+
+    const navHeight = nav.offsetHeight;
+    document.documentElement.style.setProperty(
+      "--nav-height",
+      `${navHeight}px`
+    );
+  }
+
+  setNavHeight();
+  window.addEventListener("resize", setNavHeight);
+});
