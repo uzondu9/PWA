@@ -52,6 +52,7 @@ a{
 
 html,body{
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /*  HEADER */
@@ -274,12 +275,14 @@ header::before{
   padding-bottom: 3em;
 }
 
-.featured_events a{
+.box_btn{
   color: var(--color-light);
+  border: 1px solid var(--color-primary);
+  padding: 0.5em;
   transition: .3s;
 }
 
-.featured_events a:hover{
+.box_btn:hover{
   background-color: var(--color-primary);
   color: var(--color-dark);
 }
@@ -321,11 +324,11 @@ header::before{
   gap: 0.5em;
 }
 
-.card > .content .info p{
+.featured_container .card > .content .info p{
   color: var(--color-light);
 }
 
-.card > .content .info i{
+.featured_container .card > .content .info i{
   color: var(--color-primary);
 }
 
@@ -501,7 +504,7 @@ header::before{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3em 2em;
+  padding: 5em 2em 0 2em;
 
   *{
     text-align: center;
@@ -526,6 +529,7 @@ header::before{
   align-items: center;
   border-top-left-radius: 15em;
   border-bottom-right-radius: 10em;
+  max-width: 486px;
 
   h3, p{
     flex: 50%;
@@ -551,11 +555,14 @@ header::before{
     rgba(1, 0, 0, 0), 
     rgba(1, 0, 0, 0.7)
   );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .values .values_grid{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));;
   padding: 2em;
   width: 90vw;
   gap: 1em;
@@ -567,6 +574,116 @@ header::before{
   border-radius: var(--font-size-caption);
 }
 
+/* Foundations */
+.foundations{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  padding: 2em 5vw;
+  background: linear-gradient(
+     to bottom, 
+    rgb(214, 212, 210), 
+    rgb(148, 144, 140)
+  ), url(assets/img/hero.png);
+  background-size: cover;
+}
+
+.foundations .row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  padding: 2em 0 0 0;
+}
+
+.foundations .row .card{
+  display: flex;
+  gap: 1em;
+}
+
+.foundations .row .card .circle{
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: var(--color-primary);
+}
+
+.found_btns .btn{
+  background-color: var(--color-accent);
+}
+
+
+/* Latest sermons */
+.latest_sermons{
+  padding: 4em 2em;
+}
+
+.latest_sermons .top_row{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.latest_sermons .top_row .headline > :first-child + :nth-child(2){
+  padding: 0.5em 0 3em 0;
+}
+
+.latest_sermons .top_row .box_btn{
+  color: var(--color-dark);
+}
+
+.latest_sermons .sermons_row{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2em;
+}
+
+.latest_sermons .sermons_row .card{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.latest_sermons .sermons_row .card .content{
+  background-color:#eabf218a;
+  padding: 2em;
+}
+
+.sermons_row .card .content .info,
+.sermons_row .card .content .info *,
+.sermons_row .card .content .row{
+  display: flex;
+}
+
+.sermons_row .card .content .info *{
+  gap: 1em;
+  i{
+    color: var(--color-accent);
+  }
+}
+
+.sermons_row .card .content .row{
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 1em;
+
+  .download i{
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.listen_btn .btn{
+    background-color: var(--color-accent);
+
+}
+
+.latest_sermons .sermons_row .card img{
+  max-width: 100%;
+  height: 200px;
+}
 
 
 
@@ -582,7 +699,8 @@ header::before{
 
 
 
-@media (min-width: 1024){
+
+@media (min-width: 1024px){
   nav{
     position: static;
     max-width: 100vw;
