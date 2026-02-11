@@ -234,7 +234,6 @@ header::before{
 .header_container h1, .header_container p, 
 .header_container blockquote{
   color: var(--color-light);
-  font-size: 40px;
   text-align: center;
 }
 
