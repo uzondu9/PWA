@@ -6,8 +6,17 @@
   --color-primary: #EABD21;
   --color-accent: #D71820;
   --color-dark: #000000;
-  --color-muted: #94908C;
+  --color-muted: #94908c4d;
   --color-light: #FFFFFF;
+
+  --font-size-h1: 2.5rem;
+  --font-size-h2: 2rem;
+  --font-size-h3: 1.5rem;
+  --font-size-h4: 1.25rem;
+  --font-size-body: 1rem;
+  --font-size-body-lg: 1.125rem;
+  --font-size-small: 0.875rem;
+  --font-size-caption: 0.75rem;
 }
 
 *{
@@ -18,6 +27,15 @@
 
 h1, h2, h3 {
   font-family: var(--font-heading);
+}
+
+h1{font-size: var(--font-size-h1);}
+h2{font-size: var(--font-size-h2);}
+h3{font-size: var(--font-size-h3);}
+h4{font-size: var(--font-size-h4);}
+
+p{
+  font-size: var(--font-size-body);
 }
 
 body, p, li {
@@ -187,15 +205,16 @@ header#hero{
 header::before{
   position: absolute;
   content: "";
-  height: 100%;
+  height: calc(100vh - var(--nav-height));
+  height: 100vh;
   width: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-image: linear-gradient(
     to bottom, 
-    rgba(1, 0, 0, 0.5), 
-    #d71822b6
+    rgba(1, 0, 0, 0.9), 
+    rgba(1, 0, 0, 0.7)
   ), url(assets/img/hero.png);
 
   background-position: center center;
@@ -224,9 +243,8 @@ header::before{
 }
 
 .header_container blockquote{
-  color: var(--color-dark);
+  color: var(--color-primary);
   font-size: 14px;
-  font-weight: 600;
 }
 
 .header_btns{
@@ -235,7 +253,7 @@ header::before{
 }
 
 .header_btns > :first-child{
-  background-color: var(--color-dark);
+  background-color: var(--color-accent);
   color: var(--color-light);
 }
 
@@ -339,13 +357,13 @@ header::before{
   border-radius: 1em;
 }
 
-.about_us .header_row h1, 
+.about_us .header_row h2, 
 .about_us .header_row p,
 .weekly_services .headline > *{
   text-align: center;
 }
 
-.about_us .header_row h1 span {
+.about_us .header_row h2 span {
   color: var(--color-primary);
 }
 
@@ -360,7 +378,7 @@ header::before{
 }
 
 .about_us .info_row .card{
-  max-width: 250px;
+  max-width: calc(100vw / 3);
   border-top: 3px solid var(--color-primary);
   gap: 0.25em;
   padding: 0.5em;
@@ -371,7 +389,7 @@ header::before{
 }
 
 .about_us .info_row .card > :nth-child(2){
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 700;
 }
 
@@ -393,13 +411,19 @@ header::before{
 .ws_container{
   padding: 0;
   gap: 2em;
-
+  background-color: transparent;
 }
 
 .ws_container .headline,
 .service_row .card{
   max-width: 468px;
   align-self: center;
+}
+
+.ws_container .headline{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
 
 .service_row{
@@ -413,6 +437,7 @@ header::before{
   display: flex;
   align-items: center;
   background-color: var(--color-light);
+  border: 2px solid var(--color-dark);
   padding: 1em;
   border-radius: 1em;
   gap: 1em;
@@ -471,7 +496,83 @@ header::before{
   mask-size: 100% 100%;
 }
 
-/*  */
+/*Identity*/
+.identity{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3em 2em;
+
+  *{
+    text-align: center;
+  }
+
+  h2{
+    max-width: 65%;
+  }
+}
+
+.identity .vision {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vision .vision_card{
+  display: flex;
+  background-color: var(--color-muted);
+  padding: 3em;
+  margin-top: 2em;
+  align-items: center;
+  border-top-left-radius: 15em;
+  border-bottom-right-radius: 10em;
+
+  h3, p{
+    flex: 50%;
+  }
+
+  h3{
+    font-size: 24px;
+  }
+
+  p{
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+}
+
+.identity .values {
+  padding: 5em 0;
+  width: 100vw;
+  background: linear-gradient(
+     to bottom, 
+    rgba(1, 0, 0, 0), 
+    rgba(1, 0, 0, 0.7)
+  );
+}
+
+.values .values_grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 2em;
+  width: 90vw;
+  gap: 1em;
+}
+
+.values_grid .card{
+  background-color: var(--color-primary);
+  padding: 0.5em;
+  border-radius: var(--font-size-caption);
+}
+
+
+
+
+
+
 
 
 
@@ -500,7 +601,7 @@ header::before{
     display: flex;
     align-items: center;
     padding: 0em 1em;
-    border-bottom:1px solid var(--color-muted);
+    border-bottom: 1px solid var(--color-muted);
  }
 
  .nav_header{
@@ -558,4 +659,7 @@ header::before{
     padding-top: var(--nav-height);
   }
 
+  .about_us .info_row .card{
+    max-width: calc(100vw / 5);
+  }
 }
