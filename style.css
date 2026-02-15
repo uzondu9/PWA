@@ -907,9 +907,83 @@ header::before{
   background-color: var(--color-accent);
 }
 
+/* In Touch */
 
+.in_touch{
+  padding: 4em 2em;
+}
 
+.in_touch .headline{
+  text-align: center;
+}
 
+.in_touch .info_row{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 2em;
+  gap: 2em;
+}
+
+.in_touch .card{
+  border: 1px solid var(--color-primary);
+  width: 300px;
+  padding: 2em;;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1em;
+  gap: 0.5em;
+  transition: .9s;
+  cursor: pointer;
+
+  svg{
+    font-size: var(--font-size-h2);
+    color: var(--color-primary);
+  }
+}
+
+.in_touch .card:hover{
+  background-color: var(--color-primary);
+}
+
+.input_cont{
+  display: flex;
+  justify-content: center;
+  padding-top: 3em;
+}
+
+.input_cont form{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  min-width: 300px;
+}
+
+form .box{
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+}
+
+form .box input{
+  padding: 0.5em;
+  border: 1px solid var(--color-dark);
+  border-radius: 0.5em;
+}
+
+form .box input:focus, form .box textarea:focus{
+  outline: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+form .box textarea{
+  padding: 1em;
+}
+
+form .btn{
+  background-color: var(--color-accent);
+}
 
 
 @media (min-width: 1024px){
