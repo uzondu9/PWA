@@ -1,6 +1,6 @@
 :root {
   --font-heading: 'Montserrat', sans-serif;
-  --font-body: 'Tahoma', sans-serif;
+  --font-body: 'Lato', sans-serif;
   --font-accent: 'Playfair Display', serif;
 
   --color-primary: #EABD21;
@@ -23,7 +23,6 @@
  margin: 0;
  padding: 0;   
  box-sizing: border-box;
- /* font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
 }
 
 h1, h2, h3 {
@@ -84,7 +83,7 @@ html,body{
   color: var(--color-light)
 }
 
-.top_nav i{
+.top_nav i, .footer i{
   color: var(--color-primary);
   font-size: 1.25rem;
 }
@@ -104,13 +103,13 @@ html,body{
   width: 100%;
 }
 
-.nav_header .nav_logo .logo{
+.nav_header .nav_logo .logo, .footer .logo{
   display: flex;
   align-items: center;
   margin-right: auto;
 }
 
-.nav_header .nav_logo .logo img{
+.nav_header .nav_logo .logo img, .footer .logo img{
   width: 50px;
 }
 
@@ -944,7 +943,7 @@ header::before{
 }
 
 .in_touch .card:hover{
-  background-color: var(--color-primary);
+  background-color: var(--color-accent);
 }
 
 .input_cont{
@@ -966,13 +965,13 @@ form .box{
   gap: 0.25em;
 }
 
-form .box input{
+form .box input, footer input{
   padding: 0.5em;
   border: 1px solid var(--color-dark);
   border-radius: 0.5em;
 }
 
-form .box input:focus, form .box textarea:focus{
+form .box input:focus, form .box textarea:focus, footer input:focus{
   outline: var(--color-primary);
   border-color: var(--color-primary);
 }
@@ -983,6 +982,73 @@ form .box textarea{
 
 form .btn{
   background-color: var(--color-accent);
+}
+
+/* Footer */
+.footer{
+  background-color: var(--color-dark);
+  padding: 3em 3em 0 3em;
+  *{
+    color: var(--color-light);
+  }
+}
+
+.footer .logo{
+  flex-direction: column;
+  gap: 1em;
+  margin: 0;
+
+  blockquote{
+    font-size: var(--font-size-h3);
+  }
+}
+
+.footer .top{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3em;
+
+  p,h3,h4{
+    text-align: center;
+  }
+}
+
+.footer .col{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25em;
+}
+
+.footer .col .content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1em;
+
+  p{
+    text-align: left;
+  }
+
+  .info{
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.footer #right{
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+footer .bottom{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  border-top: 2px solid var(--color-light);
 }
 
 
