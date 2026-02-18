@@ -201,27 +201,16 @@ header#hero{
     position: relative;
     isolation: isolate;
     overflow: hidden;
-}
-
-header::before{
-  position: absolute;
-  content: "";
-  height: calc(100vh - var(--nav-height));
-  height: 100vh;
-  width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-image: linear-gradient(
+     background-image: linear-gradient(
     to bottom, 
     rgba(1, 0, 0, 0.9), 
     rgba(1, 0, 0, 0.7)
   ), url(assets/img/hero.png);
 
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: -1;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
 }
 
 .header_container{
@@ -375,6 +364,7 @@ header::before{
 
 .about_us .info_row{
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 2em;
 }
@@ -584,6 +574,24 @@ header::before{
     width: var(--font-size-h2);
     height: var(--font-size-h2);
     font-size: var(--font-size-h2);
+  }
+}
+
+@media (max-width: 375px){
+  .values_grid .card h4{
+    font-size: calc(var(--font-size-h4) / 1.5)
+  }
+
+  .sup_row .card h2{
+    font-size: calc(var(--font-size-h2) / 1.75);
+  }
+
+  .sup_row .card p{
+    font-size: calc((var(--font-size-body-lg) / 1.75));
+  }
+
+  .footer a.logo blockquote{
+    font-size: calc(var(--font-size-h3) / 1.25);
   }
 }
 
@@ -1038,6 +1046,16 @@ form .btn{
   }
 }
 
+footer form{
+  display: flex;
+  gap: 1em;
+}
+
+footer input{
+  padding-top: 1em; 
+  padding-bottom: 1em;
+}
+
 .footer #right{
   gap: 1em;
   margin-bottom: 2em;
@@ -1154,5 +1172,72 @@ footer .bottom{
     max-width: 25vw;
     text-align: left;
   }
+
+  .upcoming_events .top_row, .latest_sermons .top_row {
+    justify-content: space-around;
+
+    .headline{
+      text-align: left;
+    }
+  }
+
+
+  .upcoming_events .events_container .card{
+    flex-direction: row;
+  }
+
+  .latest_sermons .top_row{
+    justify-content: center;
+    p{
+      width: 50%;
+    }
+  }
+
+  .support .headline{
+    p{
+      width: 50%;
+    }
+  }
+
+  .support .sup_row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .footer .top{
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 2em;
+
+    p,h3,h4{
+      text-align: left;
+    }
+  }
+
+  .footer .top .col{
+    align-items: flex-start;
+  }
+
+  .footer .col .content{
+    display: flex;
+    align-items: flex-start;
+
+    p{
+      text-align: left;
+    }
+
+    .info{
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .footer .col#center{
+    width: min-content;
+  }
+    
+
 
 }
