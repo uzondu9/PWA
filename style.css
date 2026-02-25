@@ -201,16 +201,26 @@ header#hero{
     position: relative;
     isolation: isolate;
     overflow: hidden;
-     background-image: linear-gradient(
+}
+
+header::before{
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: linear-gradient(
     to bottom, 
     rgba(1, 0, 0, 0.9), 
     rgba(1, 0, 0, 0.7)
   ), url(assets/img/hero.png);
 
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: -1;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
 }
 
 .header_container{
@@ -220,6 +230,7 @@ header#hero{
   justify-content: center;
   gap: 1rem;
 }
+
 
 .header_container h1, .header_container p, 
 .header_container blockquote{
@@ -241,7 +252,7 @@ header#hero{
   gap: 1em;
 }
 
-.header_btns > :first-child{
+header a .btn{
   background-color: var(--color-accent);
   color: var(--color-light);
 }
@@ -614,7 +625,7 @@ header#hero{
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 3em;
   padding: 2em 0 0 0;
 }
@@ -647,30 +658,30 @@ header#hero{
 
 /* Latest sermons */
 .latest_sermons{
-  padding: 4em 2em;
+  padding: 4em 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.latest_sermons .top_row{
+.latest_sermons .sermons_cont{
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  gap: 2em;
 
   .headline{
     text-align: center;
   }
-
-  p{
-    /* width: 50%; */
-  }
 }
 
-.latest_sermons .top_row .headline > :first-child + :nth-child(2){
+/* .latest_sermons .top_row .headline > :first-child + :nth-child(2){
   padding: 0.5em 0 3em 0;
 }
 
 .latest_sermons .top_row .box_btn{
   color: var(--color-dark);
-}
+} */
 
 .latest_sermons .sermons_row{
   display: flex;
@@ -729,6 +740,7 @@ header#hero{
 .departments{
   background-color: var(--color-muted);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 5em 2em;
@@ -737,7 +749,6 @@ header#hero{
 }
 
 .departments .headline{
-  /* max-width: 25vw; */
   text-align: center;
 }
 
@@ -771,30 +782,42 @@ header#hero{
   }
 }
 
+.departments .btn{
+  background-color: var(--color-accent);
+}
+
 .departments .box .card:hover, .values_grid .card:hover{
   background-color: var(--color-accent);
+}
+
+.departments .headline .depart_btns{
+  display: none;
 }
 
 /* Upcoming Events */
 
 .upcoming_events{
   padding: 4em 2em;
-}
-
-.upcoming_events .top_row{
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 3em;
+}
+
+.upcoming_events .container{
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
 
   .headline{
     text-align: center;
   }
 
-  .headline p{
-    /* width: 50%; */
+  .time p{
+    font-weight: 600;
   }
 }
+
 
 .upcoming_events .top_row .box_btn{
   color: var(--color-dark);
@@ -874,9 +897,6 @@ header#hero{
   align-items: center;
   text-align: center;
   padding-bottom: 2em;
-  p{
-    /* width: 50%; */
-  }
 }
 
 .support .sup_row{
@@ -990,6 +1010,10 @@ form .box textarea{
 
 form .btn{
   background-color: var(--color-accent);
+}
+
+footer #form input{
+  color: var(--color-dark);
 }
 
 /* Footer */
@@ -1168,14 +1192,26 @@ footer .bottom{
     width: 50%;
   }
 
+  .departments{
+    flex-direction: row;
+  }
+
   .departments .headline{
     max-width: 25vw;
     text-align: left;
   }
 
-  .upcoming_events .top_row, .latest_sermons .top_row {
-    justify-content: space-around;
+  .departments .headline > .depart_btns{
+    display: block;
+  }
 
+  .departments > .depart_btns{
+    display: none;
+  }
+
+
+
+  .upcoming_events .container, .latest_sermons .sermons_cont{
     .headline{
       text-align: left;
     }
@@ -1217,7 +1253,12 @@ footer .bottom{
   }
 
   .footer .top .col{
-    align-items: flex-start;
+    align-items: center;
+    gap: 0.75em;
+
+    blockquote{
+      text-align: center;
+    }
   }
 
   .footer .col .content{
