@@ -4,15 +4,29 @@ const menuBtnIcon = menuBtn.querySelector('i');
 
 menuBtn.addEventListener('click', (e) =>{
   navLinks.classList.toggle('open');
-  
-  if (navLinks.classList.contains('open')){
-    menuBtnIcon.setAttribute('class', 'ri-close-line')
-  }
-  
-  else{
-   menuBtnIcon.setAttribute('class', 'ri-menu-line')
-  }
+  let_open();
 });
+
+let links = navLinks.children;
+
+for(let link of links){
+   link.addEventListener('click', (e) =>{
+    navLinks.classList.remove('open');
+    let_open();
+    console.log('hello what');
+  });
+}
+
+function let_open(){
+     if (navLinks.classList.contains('open')){
+      menuBtnIcon.setAttribute('class', 'ri-close-line')
+    }
+    
+    else{
+      menuBtnIcon.setAttribute('class', 'ri-menu-line')
+    }
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
   function setNavHeight() {
@@ -116,4 +130,43 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
     window.open(gmailUrl, "_blank");
   }
+});
+
+
+// PLAY SERMONS
+const sermons = document.querySelectorAll(".listen_btn");
+
+let currentAudio = null;
+let currentBtn = null;
+
+sermons.forEach(sermon => {
+  const btn = sermon.querySelector(".btn");
+  const audio = sermon.querySelector("audio");
+
+  btn.addEventListener("click", async () => {
+
+    // Stop previous audio
+    if (currentAudio && currentAudio !== audio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentBtn) currentBtn.textContent = "Play Sermon";
+    }
+
+    if (audio.paused) {
+      btn.textContent = "Loading...";
+      await audio.play();
+
+      btn.textContent = "Pause Sermon";
+      currentAudio = audio;
+      currentBtn = btn;
+    } else {
+      audio.pause();
+      btn.textContent = "Play Sermon";
+    }
+
+  });
+
+  audio.addEventListener("ended", () => {
+    btn.textContent = "Play Sermon";
+  });
 });
