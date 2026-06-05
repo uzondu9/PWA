@@ -110,63 +110,322 @@ document.querySelectorAll(".c_btn").forEach(button => {
 
 });
 
+// EVENT COUNTDOWN + SMOOTH SCROLL
+// EDITABLE EVENT DATE: update the string below to change the countdown target
+const EVENT_DATE = "2027-05-01T08:00:00"; // <--- set your event date/time here (ISO 8601)
 
-// SEND MESSAGE
-document.getElementById("form").addEventListener("submit", function(e) {
-  e.preventDefault();
+const elDays = document.getElementById('countdown-days');
+const elHours = document.getElementById('countdown-hours');
+const elMinutes = document.getElementById('countdown-minutes');
+const elSeconds = document.getElementById('countdown-seconds');
+const countdownGrid = document.getElementById('countdown-grid');
+const countdownMessage = document.getElementById('countdown-message');
 
-  const name = document.getElementById("name").value;
-  const message = document.getElementById("message").value;
-  const email = document.getElementById("email").value;
+const seeMoreBtn = document.getElementById('see-more-btn');
+const upcomingEventsSection = document.getElementById('upcoming-events');
 
-  const to = 'preciouswordassembly@gmail.com';
-  if (name.value || message.value || email.value != 0){
-      const subject = encodeURIComponent("Church Inquiry Message");
-      const body = encodeURIComponent(
-          `Hi I'm: ${name}\n${message}`
-        );
-    
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
+function formatNumber(n){ return String(n).padStart(2, '0'); }
 
-    window.open(gmailUrl, "_blank");
+function showEventMessage(text){
+  if(countdownMessage){
+    countdownMessage.textContent = text;
+    countdownMessage.style.display = 'block';
   }
-});
+  if(countdownGrid){ countdownGrid.style.display = 'none'; }
+}
+
+function clearEventMessage(){
+  if(countdownMessage){ countdownMessage.textContent = ''; countdownMessage.style.display = 'none'; }
+  if(countdownGrid){ countdownGrid.style.display = 'flex'; }
+}
+
+let countdownInterval = null;
+function updateCountdown(){
+  const target = new Date(EVENT_DATE);
+  const now = new Date();
+  let diff = Math.max(0, target - now);
+
+  const totalSec = Math.floor(diff / 1000);
+  const days = Math.floor(totalSec / 86400);
+  const hours = Math.floor((totalSec % 86400) / 3600);
+  const minutes = Math.floor((totalSec % 3600) / 60);
+  const seconds = totalSec % 60;
+
+  if(elDays) elDays.textContent = formatNumber(days);
+  if(elHours) elHours.textContent = formatNumber(hours);
+  if(elMinutes) elMinutes.textContent = formatNumber(minutes);
+  if(elSeconds) elSeconds.textContent = formatNumber(seconds);
+
+  // When countdown hits zero, stop and show message
+  if(diff === 0){
+    clearInterval(countdownInterval);
+    showEventMessage('Event Started — See You There');
+    if(countdownGrid) countdownGrid.classList.remove('soon');
+    return;
+  }
+
+  // Add 'soon' visual accent when less than 24 hours
+  if(diff <= 24 * 60 * 60 * 1000){
+    if(countdownGrid) countdownGrid.classList.add('soon');
+  } else {
+    if(countdownGrid) countdownGrid.classList.remove('soon');
+  }
+}
+
+// init
+clearEventMessage();
+updateCountdown();
+countdownInterval = setInterval(updateCountdown, 1000);
+
+if (seeMoreBtn && upcomingEventsSection) {
+  seeMoreBtn.addEventListener('click', () => {
+    upcomingEventsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
 
 
-// PLAY SERMONS
-const sermons = document.querySelectorAll(".listen_btn");
+// // SEND MESSAGE
+// document.getElementById("form").addEventListener("submit", function(e) {
+//   e.preventDefault();
 
-let currentAudio = null;
-let currentBtn = null;
+//   const name = document.getElementById("name").value;
+//   const message = document.getElementById("message").value;
+//   const email = document.getElementById("email").value;
 
-sermons.forEach(sermon => {
-  const btn = sermon.querySelector(".btn");
-  const audio = sermon.querySelector("audio");
+//   const to = 'preciouswordassembly@gmail.com';
+//   if (name.value || message.value || email.value != 0){
+//       const subject = encodeURIComponent("Church Inquiry Message");
+//       const body = encodeURIComponent(
+//           `Hi I'm: ${name}\n${message}`
+//         );
+    
+//     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
 
-  btn.addEventListener("click", async () => {
+//     window.open(gmailUrl, "_blank");
+//   }
+// });
 
-    // Stop previous audio
-    if (currentAudio && currentAudio !== audio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      if (currentBtn) currentBtn.textContent = "Play Sermon";
+
+// GLOBAL SERMON AUDIO PLAYER
+const audio = new Audio();
+const playButtons = document.querySelectorAll('.play_sermon');
+const audioPlayer = document.getElementById('audio-player');
+const playerTitle = document.querySelector('.player_title');
+const playerSpeaker = document.querySelector('.player_speaker');
+const playerToggle = document.querySelector('.player_toggle');
+const playerProgress = document.querySelector('.player_progress');
+const playerTime = document.querySelector('.player_time');
+const playerClose = document.querySelector('.player_close');
+let activeButton = null;
+
+function formatTime(seconds) {
+  if (!seconds || Number.isNaN(seconds)) return '0:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+  return `${mins}:${secs}`;
+}
+
+function showPlayer() {
+  audioPlayer.classList.add('active');
+  audioPlayer.setAttribute('aria-hidden', 'false');
+}
+
+function hidePlayer() {
+  audioPlayer.classList.remove('active');
+  audioPlayer.setAttribute('aria-hidden', 'true');
+}
+
+function updatePlayerState() {
+  if (audio.paused) {
+    playerToggle.innerHTML = '<i class="ri-play-fill"></i>';
+    if (activeButton) activeButton.classList.remove('active');
+  } else {
+    playerToggle.innerHTML = '<i class="ri-pause-fill"></i>';
+    if (activeButton) activeButton.classList.add('active');
+  }
+}
+
+function updateProgress() {
+  if (!audio.duration) return;
+  playerProgress.max = audio.duration;
+  playerProgress.value = Math.min(audio.currentTime, audio.duration);
+  playerTime.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+}
+
+function setActiveButton(button) {
+  if (activeButton) activeButton.classList.remove('active');
+  activeButton = button;
+  activeButton.classList.add('active');
+}
+
+function loadSermon(button) {
+  const title = button.dataset.title;
+  const speaker = button.dataset.speaker;
+  const src = button.dataset.audio;
+  const resolvedSrc = new URL(src, window.location.href).href;
+
+  if (audio.src !== resolvedSrc) {
+    audio.src = src;
+    audio.currentTime = 0;
+  }
+
+  playerTitle.textContent = title;
+  playerSpeaker.textContent = speaker;
+  setActiveButton(button);
+  showPlayer();
+  audio.play().catch(() => {
+    updatePlayerState();
+  });
+}
+
+playButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const sourceUrl = new URL(button.dataset.audio, window.location.href).href;
+
+    if (audio.src !== sourceUrl) {
+      loadSermon(button);
+      return;
     }
 
     if (audio.paused) {
-      btn.textContent = "Loading...";
-      await audio.play();
-
-      btn.textContent = "Pause Sermon";
-      currentAudio = audio;
-      currentBtn = btn;
+      audio.play();
     } else {
       audio.pause();
-      btn.textContent = "Play Sermon";
     }
-
-  });
-
-  audio.addEventListener("ended", () => {
-    btn.textContent = "Play Sermon";
   });
 });
+
+playerToggle.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+});
+
+playerProgress.addEventListener('input', () => {
+  audio.currentTime = Number(playerProgress.value);
+});
+
+playerClose.addEventListener('click', () => {
+  audio.pause();
+  hidePlayer();
+  if (activeButton) activeButton.classList.remove('active');
+});
+
+audio.addEventListener('play', updatePlayerState);
+audio.addEventListener('pause', updatePlayerState);
+audio.addEventListener('timeupdate', updateProgress);
+audio.addEventListener('ended', () => {
+  audio.currentTime = 0;
+  updatePlayerState();
+});
+
+// FORM VALIDATION
+const formCont = document.getElementById("contact-form");
+
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const phoneInput = document.getElementById("phone");
+const messageInput = document.getElementById("message");
+
+function showError(input, message) {
+
+  const formGroup = input.parentElement;
+  const error = formGroup.querySelector(".error");
+
+  error.textContent = message;
+  input.classList.add("input-error");
+
+}
+
+function clearError(input) {
+
+  const formGroup = input.parentElement;
+  const error = formGroup.querySelector(".error");
+
+  error.textContent = "";
+  input.classList.remove("input-error");
+
+}
+
+function validateEmail(email) {
+
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+}
+
+function validatePhone(phone) {
+
+  return /^[0-9+\s()-]{7,20}$/.test(phone);
+
+}
+
+function validateForm() {
+
+  let isValid = true;
+
+  // NAME
+  if (nameInput.value.trim() === "") {
+
+    showError(nameInput, "Please enter your name");
+    isValid = false;
+
+  } else {
+
+    clearError(nameInput);
+
+  }
+
+  // EMAIL
+  if (!validateEmail(emailInput.value.trim())) {
+
+    showError(emailInput, "Enter a valid email address");
+    isValid = false;
+
+  } else {
+
+    clearError(emailInput);
+
+  }
+
+  // PHONE
+  if (!validatePhone(phoneInput.value.trim())) {
+
+    showError(phoneInput, "Enter a valid phone number");
+    isValid = false;
+
+  } else {
+
+    clearError(phoneInput);
+
+  }
+
+  // MESSAGE
+  if (messageInput.value.trim().length < 10) {
+
+    showError(messageInput, "Message must be at least 10 characters");
+    isValid = false;
+
+  } else {
+
+    clearError(messageInput);
+
+  }
+
+  return isValid;
+
+}
+
+[nameInput, emailInput, phoneInput, messageInput].forEach(input => {
+
+  input.addEventListener("input", () => {
+
+    validateForm();
+
+  });
+
+});
+
+
+
