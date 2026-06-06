@@ -147,7 +147,7 @@ nav {
   border: 1px solid var(--color-muted);
   border-top: 0px;
   background: var(--color-light);
-  padding: 4em 0em;
+  padding: 2em 0;     
   border-radius: 0em 0em 1em 1em;
   list-style: none;
   transition: transform 0.6s;
@@ -1190,29 +1190,29 @@ header::before {
 }
 
 @media (max-width: 820px){
-.latest_sermons {
-  padding: 3em 1.5em;
-}
+  .latest_sermons {
+    padding: 3em 1.5em;
+  }
 
-.audio_player {
-  left: 1rem;
-  right: 1rem;
-}
-}
+  .audio_player {
+    left: 1rem;
+    right: 1rem;
+  }
+  }
 
-@media (max-width: 640px){
-.audio_player .player_meta {
-  flex-direction: column;
-  align-items: stretch;
-}
+  @media (max-width: 640px){
+  .audio_player .player_meta {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.audio_player .player_controls {
-  grid-template-columns: auto 1fr;
-}
+  .audio_player .player_controls {
+    grid-template-columns: auto 1fr;
+  }
 
-.player_time {
-  justify-self: end;
-}
+  .player_time {
+    justify-self: end;
+  }
 }
 
 /* Departments */

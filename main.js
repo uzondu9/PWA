@@ -112,7 +112,7 @@ document.querySelectorAll(".c_btn").forEach(button => {
 
 // EVENT COUNTDOWN + SMOOTH SCROLL
 // EDITABLE EVENT DATE: update the string below to change the countdown target
-const EVENT_DATE = "2027-05-01T08:00:00"; // <--- set your event date/time here (ISO 8601)
+const EVENT_DATE = "2026-06-09T08:00:00"; // <--- set your event date/time here (ISO 8601)
 
 const elDays = document.getElementById('countdown-days');
 const elHours = document.getElementById('countdown-hours');
@@ -183,27 +183,6 @@ if (seeMoreBtn && upcomingEventsSection) {
   });
 }
 
-
-// // SEND MESSAGE
-// document.getElementById("form").addEventListener("submit", function(e) {
-//   e.preventDefault();
-
-//   const name = document.getElementById("name").value;
-//   const message = document.getElementById("message").value;
-//   const email = document.getElementById("email").value;
-
-//   const to = 'preciouswordassembly@gmail.com';
-//   if (name.value || message.value || email.value != 0){
-//       const subject = encodeURIComponent("Church Inquiry Message");
-//       const body = encodeURIComponent(
-//           `Hi I'm: ${name}\n${message}`
-//         );
-    
-//     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
-
-//     window.open(gmailUrl, "_blank");
-//   }
-// });
 
 
 // GLOBAL SERMON AUDIO PLAYER
