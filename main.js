@@ -112,7 +112,7 @@ document.querySelectorAll(".c_btn").forEach(button => {
 
 // EVENT COUNTDOWN + SMOOTH SCROLL
 // EDITABLE EVENT DATE: update the string below to change the countdown target
-const EVENT_DATE = "2026-06-09T08:00:00"; // <--- set your event date/time here (ISO 8601)
+const EVENT_DATE = "2026-06-14T08:00:00"; // <--- set your event date/time here (ISO 8601)
 
 const elDays = document.getElementById('countdown-days');
 const elHours = document.getElementById('countdown-hours');
