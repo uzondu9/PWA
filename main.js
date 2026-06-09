@@ -49,14 +49,27 @@ document.querySelectorAll(".c_btn").forEach(button => {
 
   button.addEventListener("click", function () {
 
-    const eventCard = this.closest(".e-card");
+    const eventCard = this.closest("article.event_card");
 
     // === Extract Values ===
-    const day = eventCard.querySelector(".date").textContent.trim();
-    const monthYear = eventCard.querySelector(".month").textContent.trim();
-    const title = eventCard.querySelector(".title h2").textContent.trim();
-    const timeText = eventCard.querySelector(".time p").textContent;
-    const location = eventCard.querySelector(".location p").textContent.trim();
+    // Get elements safely
+    const dayEl = eventCard.querySelector(".event_badge span.day") || eventCard.querySelector(".event_date");
+    const monthEl = eventCard.querySelector(".event_badge span.month") || eventCard.querySelector(".event_month");
+    const titleEl = eventCard.querySelector("h3.title") || eventCard.querySelector("h3");
+    const timeEl = eventCard.querySelector(".time span");
+    const locationEl = eventCard.querySelector(".location span");
+
+    // Check if elements exist
+    if (!dayEl || !monthEl || !titleEl || !timeEl || !locationEl) {
+      console.error("Missing event card elements");
+      return;
+    }
+
+    const day = dayEl.textContent.trim();
+    const monthYear = monthEl.textContent.trim();
+    const title = titleEl.textContent.trim();
+    const timeText = timeEl.textContent.trim();
+    const location = locationEl.textContent.trim();
 
     // === Convert Date Properly ===
 
@@ -65,8 +78,14 @@ document.querySelectorAll(".c_btn").forEach(button => {
     const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth();
 
     // Extract hour + am/pm
-    let hour = parseInt(timeText);
+    let hour = parseInt(timeText.split(':')[0].trim()); // Extract hour before colon (e.g., "5" from "5:00PM")
     const isPM = timeText.toLowerCase().includes("pm");
+
+    // Validate parsed values
+    if (isNaN(hour) || isNaN(monthIndex) || isNaN(parseInt(day)) || isNaN(parseInt(year))) {
+      console.error("Invalid date values:", { day, monthIndex, hour, year });
+      return;
+    }
 
     if (isPM && hour !== 12) hour += 12;
     if (!isPM && hour === 12) hour = 0;
